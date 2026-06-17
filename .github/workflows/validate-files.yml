@@ -1,0 +1,30 @@
+name: Validate Uploads
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  check-files:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check file extensions
+        run: |
+          allowed="jpg jpeg png webp gif mp4 mkv mov"
+
+          failed=0
+
+          for file in $(git diff --name-only HEAD~1 HEAD); do
+            ext="${file##*.}"
+            ext=$(echo "$ext" | tr '[:upper:]' '[:lower:]')
+
+            if ! echo "$allowed" | grep -qw "$ext"; then
+              echo "❌ Disallowed file: $file"
+              failed=1
+            fi
+          done
+
+          exit $failed
