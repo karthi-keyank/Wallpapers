@@ -1,0 +1,15 @@
+*.exe
+*.msi
+*.bat
+*.cmd
+*.ps1
+*.sh
+*.jar
+*.apk
+*.deb
+*.rpm
+*.AppImage
+*.iso
+*.zip
+*.rar
+*.7z
